@@ -24,9 +24,9 @@ const COLORS = {
   gray000: "#fbfcfc",
 };
 const FONT = {
-  regular: "DMRegular",
-  medium: "DMMedium",
-  bold: "DMBold",
+  regular: "regular",
+  medium: "medium",
+  bold: "bold",
 };
 
 const SIZES = {
@@ -36,6 +36,7 @@ const SIZES = {
   large: 20,
   xLarge: 24,
   xxLarge: 32,
+  xxxLarge: 32,
 };
 
 export { COLORS, FONT, SIZES };

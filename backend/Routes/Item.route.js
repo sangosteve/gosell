@@ -8,9 +8,10 @@ const Item = require("../Models/Item.model");
 router.get("/", async (req, res, next) => {
   try {
     const results = await Item.find();
-    res.send(results);
+    res.status(200).json(results);
   } catch (err) {
-    console.log(err);
+    console.log(err.message);
+    res.status(400).send(err);
   }
 });
 router.get("/:id", async (req, res, next) => {

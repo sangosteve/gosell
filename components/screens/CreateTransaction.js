@@ -21,20 +21,6 @@ const CreateTransaction = ({ navigation }) => {
       price: 10.0,
       qty: 2,
     },
-    {
-      id: 2,
-      name: "Stockings",
-      desription: "ankle cover stockings",
-      price: 1.0,
-      qty: 4,
-    },
-    {
-      id: 3,
-      name: "Bunny Hats",
-      desription: "winter bunny hats",
-      price: 5.0,
-      qty: 2,
-    },
   ];
 
   const renderItem = ({ item }) => (
