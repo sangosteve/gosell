@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   View,
   Text,
@@ -12,16 +12,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/Feather";
 import { COLORS, SIZES } from "../../constants/theme";
 import SelectedItemCard from "../SelectedItemCard";
+import { SelectedItemsContext } from "../../context/SelectedItemsContext";
 const CreateTransaction = ({ navigation }) => {
-  const products = [
-    {
-      id: 1,
-      name: "Jeans",
-      desription: "mens skinny jeans",
-      price: 10.0,
-      qty: 2,
-    },
-  ];
+  const { val, setVal, selectedItems } = useContext(SelectedItemsContext);
 
   const renderItem = ({ item }) => (
     <SelectedItemCard
@@ -47,10 +40,10 @@ const CreateTransaction = ({ navigation }) => {
 
       <View style={styles.itemsSection}>
         <View style={styles.itemsHeader}>
-          <Text>ITEMS</Text>
+          <Text>ITEMS{val}</Text>
         </View>
         <FlatList
-          data={products}
+          data={selectedItems}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
           contentContainerStyle={{ columnGap: 24 }}

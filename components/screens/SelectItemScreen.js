@@ -4,6 +4,7 @@ import React, {
   useRef,
   useState,
   useEffect,
+  useContext,
 } from "react";
 import BottomSheet from "@gorhom/bottom-sheet";
 import {
@@ -20,9 +21,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import ItemCard from "../ItemCard";
 import { COLORS, FONT, SIZES } from "../../constants/theme";
 import axios from "axios";
+import { SelectedItemsContext } from "../../context/SelectedItemsContext";
 
 const SelectItemScreen = ({ navigation }) => {
   const [selectedItem, setSelectedItem] = useState({});
+  const { setSelectedItems } = useContext(SelectedItemsContext);
+  const [itemQty, setItemQty] = useState(1);
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   // ref
@@ -47,6 +51,12 @@ const SelectItemScreen = ({ navigation }) => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const addToSelectedItems = (addedItem) => {
+    addedItem.qty = itemQty;
+    return setSelectedItems((selectedItems) => [...selectedItems, addedItem]);
+    // console.log("addedItem", addedItem);
   };
 
   useEffect(() => {
@@ -120,7 +130,7 @@ const SelectItemScreen = ({ navigation }) => {
               <Text style={styles.itemName}>{selectedItem?.name}</Text>
               <Text style={styles.itemDesc}>{"ankle cover stockings..."}</Text>
               <View style={styles.itemPriceWrapper}>
-                <Text style={styles.itemPrice}>$10.00</Text>
+                <Text style={styles.itemPrice}>${selectedItem?.price}</Text>
                 <Text style={styles.qtyInStock}>Stock: 12</Text>
               </View>
             </View>
@@ -133,7 +143,12 @@ const SelectItemScreen = ({ navigation }) => {
                 <Icon name="minus" size={SIZES.medium} />
               </TouchableOpacity>
               <View style={styles.qtyInputWrapper}>
-                <TextInput style={styles.qtyInput} defaultValue="1" />
+                <TextInput
+                  style={styles.qtyInput}
+                  value={itemQty.toString()}
+                  defaultValue={itemQty}
+                  onChangeText={(e) => setItemQty(e)}
+                />
               </View>
 
               <TouchableOpacity style={styles.qtyBtn}>
@@ -144,7 +159,9 @@ const SelectItemScreen = ({ navigation }) => {
           {/* TOTAL */}
           <View style={styles.totalWrapper}>
             <Text style={styles.totalTitle}>Total</Text>
-            <Text style={styles.totalAmnt}>$10.00</Text>
+            <Text style={styles.totalAmnt}>
+              ${itemQty * selectedItem?.price}
+            </Text>
           </View>
           {/* ACTION BTNS */}
           <View style={styles.itemActionBtns}>
@@ -157,7 +174,10 @@ const SelectItemScreen = ({ navigation }) => {
             >
               <Text style={styles.cancelBtnText}>Cancel</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.itemAddBtn}>
+            <TouchableOpacity
+              style={styles.itemAddBtn}
+              onPress={() => addToSelectedItems(selectedItem)}
+            >
               <Text style={styles.addBtnText}>Add Item</Text>
             </TouchableOpacity>
           </View>
