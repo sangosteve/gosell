@@ -176,7 +176,11 @@ const SelectItemScreen = ({ navigation }) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.itemAddBtn}
-              onPress={() => addToSelectedItems(selectedItem)}
+              onPress={() => {
+                addToSelectedItems(selectedItem);
+                bottomSheetRef?.current?.close();
+                navigation.goBack();
+              }}
             >
               <Text style={styles.addBtnText}>Add Item</Text>
             </TouchableOpacity>

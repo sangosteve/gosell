@@ -14,12 +14,25 @@ import { COLORS, SIZES } from "../../constants/theme";
 import SelectedItemCard from "../SelectedItemCard";
 import { SelectedItemsContext } from "../../context/SelectedItemsContext";
 const CreateTransaction = ({ navigation }) => {
-  const { val, setVal, selectedItems } = useContext(SelectedItemsContext);
+  const { selectedItems } = useContext(SelectedItemsContext);
 
+  console.log("CART:", selectedItems);
+  console.log(
+    "total:",
+    selectedItems.reduce((sum, currentItem) => {
+      return sum + parseFloat(currentItem.price) * currentItem.qty;
+    }, 0)
+  );
+
+  function calcSubTotal() {
+    return selectedItems.reduce((sum, currentItem) => {
+      return sum + parseFloat(currentItem.price) * currentItem.qty;
+    }, 0);
+  }
   const renderItem = ({ item }) => (
     <SelectedItemCard
       item_name={item.name}
-      item_desc={item.desription}
+      item_desc={item.description}
       item_price={item.price}
       item_qty={item.qty}
     />
@@ -40,9 +53,10 @@ const CreateTransaction = ({ navigation }) => {
 
       <View style={styles.itemsSection}>
         <View style={styles.itemsHeader}>
-          <Text>ITEMS{val}</Text>
+          <Text>ITEMS</Text>
         </View>
         <FlatList
+          scrollEnabled={true}
           data={selectedItems}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
@@ -65,7 +79,7 @@ const CreateTransaction = ({ navigation }) => {
       <View style={styles.totalsSection}>
         <View style={styles.subTotalWrapper}>
           <Text style={styles.subTotalTitle}>Subtotal</Text>
-          <Text style={styles.subTotalAmnt}>40.00</Text>
+          <Text style={styles.subTotalAmnt}>{calcSubTotal()}</Text>
         </View>
         <View style={styles.totalWrapper}>
           <Text style={styles.totalTitle}>Total</Text>
