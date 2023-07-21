@@ -1,12 +1,39 @@
+import React, { useContext } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { COLORS, SIZES } from "../constants/theme";
+import Icon from "react-native-vector-icons/Feather";
+import { SelectedItemsContext } from "../context/SelectedItemsContext";
 
-const SelectedItemCard = ({ item_name, item_desc, item_price, item_qty }) => {
+const SelectedItemCard = ({
+  item_id,
+  item_name,
+  item_desc,
+  item_price,
+  item_qty,
+}) => {
+  const { selectedItems, setSelectedItems } = useContext(SelectedItemsContext);
+  function removeObjectWithId(arr, id) {
+    const objWithIdIndex = arr.findIndex((obj) => obj._id === id);
+
+    if (objWithIdIndex > -1) {
+      arr.splice(objWithIdIndex, 1);
+    }
+    setSelectedItems(arr);
+    console.log(selectedItems);
+  }
   return (
     <View style={styles.container}>
       <View style={styles.itemDetails}>
-        <Text style={styles.itemName}>{item_name}</Text>
-        <Text style={styles.itemDesc}>{item_desc}</Text>
+        <View>
+          <Text style={styles.itemName}>{item_name}</Text>
+          <Text style={styles.itemDesc}>{item_desc}</Text>
+          <Text style={styles.itemDesc}>{item_id}</Text>
+        </View>
+        <TouchableOpacity
+          onPress={() => removeObjectWithId(selectedItems, item_id)}
+        >
+          <Icon name="trash-2" size={SIZES.large} />
+        </TouchableOpacity>
       </View>
       <View style={styles.itemPricing}>
         <Text style={{ color: COLORS.gray600 }}>
@@ -31,6 +58,10 @@ const styles = StyleSheet.create({
     borderBottomColor: COLORS.gray300,
   },
   itemDetails: {
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "flex-start",
+    justifyContent: "space-between",
     gap: 4,
   },
   itemName: {

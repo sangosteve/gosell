@@ -2,6 +2,7 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "../../screens/Home";
 import SelectItemScreen from "../../screens/SelectItemScreen";
+import SelectClientScreen from "../../screens/SelectClientScreen";
 import CreateTransaction from "../../screens/CreateTransaction";
 const Stack = createNativeStackNavigator();
 const HomeStackNavigator = () => {
@@ -13,6 +14,7 @@ const HomeStackNavigator = () => {
         component={CreateTransaction}
       />
       <Stack.Screen name="SelectItemScreen" component={SelectItemScreen} />
+      <Stack.Screen name="SelectClientScreen" component={SelectClientScreen} />
     </Stack.Navigator>
   );
 };

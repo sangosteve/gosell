@@ -45,7 +45,6 @@ const SelectItemScreen = ({ navigation }) => {
       const response = await fetch("http:192.168.1.249:2023/items");
       const json = await response.json();
       setItems(json);
-      console.log(json);
     } catch (error) {
       console.error(error);
     } finally {
@@ -146,7 +145,7 @@ const SelectItemScreen = ({ navigation }) => {
                 <TextInput
                   style={styles.qtyInput}
                   value={itemQty.toString()}
-                  defaultValue={itemQty}
+                  defaultValue={itemQty.toString()}
                   onChangeText={(e) => setItemQty(e)}
                 />
               </View>
