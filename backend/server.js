@@ -20,8 +20,10 @@ mongoose
 
 const ItemRoute = require("./Routes/Item.route");
 const ClientRoute = require("./Routes/Client.route");
+const SaleRoute = require("./Routes/Sale.route");
 app.use("/items", ItemRoute);
 app.use("/clients", ClientRoute);
+app.use("/sales", SaleRoute);
 app.listen(PORT, () => {
   console.log("server is started on port " + PORT);
 });

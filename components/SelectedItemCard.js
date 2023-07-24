@@ -27,7 +27,6 @@ const SelectedItemCard = ({
         <View>
           <Text style={styles.itemName}>{item_name}</Text>
           <Text style={styles.itemDesc}>{item_desc}</Text>
-          <Text style={styles.itemDesc}>{item_id}</Text>
         </View>
         <TouchableOpacity
           onPress={() => removeObjectWithId(selectedItems, item_id)}

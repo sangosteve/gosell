@@ -54,6 +54,7 @@ const SelectItemScreen = ({ navigation }) => {
 
   const addToSelectedItems = (addedItem) => {
     addedItem.qty = itemQty;
+    addedItem.item_id = addedItem?._id;
     return setSelectedItems((selectedItems) => [...selectedItems, addedItem]);
     // console.log("addedItem", addedItem);
   };
