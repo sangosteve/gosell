@@ -20,4 +20,33 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+router.get("/total_revenue", async (req, res, next) => {
+  try {
+    const { start_date, end_date } = req.body;
+
+    const total_revenue = await Sale.aggregate([
+      {
+        $match: {
+          date: {
+            $gte: new Date(start_date),
+            $lte: new Date(end_date),
+          },
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          totalRevenue: {
+            $sum: { $toInt: "$total" },
+          },
+        },
+      },
+    ]);
+
+    res.status(200).send(total_revenue);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 module.exports = router;
