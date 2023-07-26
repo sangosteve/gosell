@@ -1,15 +1,15 @@
-import { NavigationContainer } from "@react-navigation/native";
-import BottomTabNavigator from "./components/navigators/tabs/BottomTab";
+import { AuthProvider } from "./context/AuthContext";
 import { SelectedItemsProvider } from "./context/SelectedItemsContext";
 import { SelectedClientProvider } from "./context/SelectedClientContext";
+import AppNav from "./components/navigators/AppNav";
 export default function App() {
   return (
-    <SelectedItemsProvider>
-      <SelectedClientProvider>
-        <NavigationContainer>
-          <BottomTabNavigator />
-        </NavigationContainer>
-      </SelectedClientProvider>
-    </SelectedItemsProvider>
+    <AuthProvider>
+      <SelectedItemsProvider>
+        <SelectedClientProvider>
+          <AppNav />
+        </SelectedClientProvider>
+      </SelectedItemsProvider>
+    </AuthProvider>
   );
 }

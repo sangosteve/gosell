@@ -8,7 +8,7 @@ import Sales from "../../screens/Sales";
 import { COLORS } from "../../../constants/theme";
 const BottomTab = createBottomTabNavigator();
 
-const BottomTabNavigator = () => {
+const AppStack = () => {
   return (
     <BottomTab.Navigator
       screenOptions={({}) => ({
@@ -78,7 +78,7 @@ const BottomTabNavigator = () => {
   );
 };
 
-export default BottomTabNavigator;
+export default AppStack;
 
 //0719 707 235
 //415 063 490
