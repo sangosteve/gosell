@@ -8,10 +8,10 @@ const ItemSchema = new Schema({
     type: String,
   },
   price: {
-    type: String,
+    type: Number,
   },
   cost: {
-    type: String,
+    type: Number,
   },
 });
 

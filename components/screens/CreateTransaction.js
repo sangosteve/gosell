@@ -37,8 +37,8 @@ const CreateTransaction = ({ navigation }) => {
 
   const saveTransaction = async () => {
     const data = JSON.stringify({
-      client_id: selectedClient?._id,
-      transactions: selectedItems,
+      client: selectedClient?._id,
+      orderItems: selectedItems,
       subTotal: calcSubTotal().toString(),
       total: calcSubTotal().toString(),
     });

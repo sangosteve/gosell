@@ -5,25 +5,30 @@ const SaleSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  client_id: {
+  client: {
     type: mongoose.Types.ObjectId,
     ref: "Client",
+    required: true,
   },
-  transactions: [
+  orderItems: [
     {
-      item_id: {
-        type: mongoose.Types.ObjectId,
+      name: { type: String, required: true },
+      description: { type: String, required: true },
+      qty: { type: Number, required: true },
+      price: { type: Number, required: true },
+      cost: { type: Number, required: true },
+      product: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
         ref: "Item",
       },
-
-      qty: String,
     },
   ],
   subTotal: {
-    type: String,
+    type: Number,
   },
   total: {
-    type: String,
+    type: Number,
   },
 });
 

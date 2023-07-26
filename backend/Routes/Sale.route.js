@@ -6,11 +6,11 @@ const Sale = require("../Models/Sales.model");
 router.post("/", async (req, res, next) => {
   try {
     // console.log(req.body);
-    const { client_id, transactions, subTotal, total } = req.body;
+    const { client, orderItems, subTotal, total } = req.body;
 
     const results = await Sale.create({
-      client_id,
-      transactions,
+      client,
+      orderItems,
       subTotal,
       total,
     });
