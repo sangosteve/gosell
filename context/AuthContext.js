@@ -1,29 +1,46 @@
 import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 const AuthContext = React.createContext();
 
 const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [userToken, setUserToken] = useState(null);
-  const login = async () => {
-    setUserToken("ZSE4XDR5CFT6");
-    if (userToken !== null) {
-      await AsyncStorage.setItem("userToken", userToken);
-    }
+  const login = async (email, password) => {
+    var data = JSON.stringify({ email: email, password: password });
 
-    setIsLoading(false);
+    var config = {
+      method: "post",
+      url: "http:192.168.1.249:2023/auth/login",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+    await axios(config)
+      .then(async function (response) {
+        console.log(response.data);
+        setUserToken(response.data?.token);
+        if (userToken !== null) {
+          await AsyncStorage.setItem("token", userToken);
+        }
+        setIsLoading(false);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   const logout = () => {
     setUserToken(null);
-    AsyncStorage.removeItem("userToken");
+    AsyncStorage.removeItem("token");
     setIsLoading(false);
   };
 
   const isLoggedIn = async () => {
     try {
       setIsLoading(true);
-      let userToken = await AsyncStorage.getItem("userToken");
+      let userToken = await AsyncStorage.getItem("token");
       setUserToken(userToken);
       setIsLoading(false);
     } catch (err) {

@@ -164,7 +164,7 @@ const CreateTransaction = ({ navigation }) => {
           </View>
           <View style={styles.totalWrapper}>
             <Text style={styles.totalTitle}>Total</Text>
-            <Text style={styles.totalAmnt}>40.00</Text>
+            <Text style={styles.totalAmnt}>{calcSubTotal()}</Text>
           </View>
         </View>
 

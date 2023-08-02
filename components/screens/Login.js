@@ -7,23 +7,35 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { COLORS } from "../../constants/theme";
 import { AuthContext } from "../../context/AuthContext";
 
 const Login = ({ navigation }) => {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const { login } = useContext(AuthContext);
+
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.headerText}>Login</Text>
 
       <View style={styles.inputGroup}>
         <Text style={styles.labelText}>Email</Text>
-        <TextInput style={styles.input} placeholder="Enter your email" />
+        <TextInput
+          onChangeText={(val) => setEmail(val)}
+          style={styles.input}
+          placeholder="Enter your email"
+        />
       </View>
       <View style={styles.inputGroup}>
         <Text style={styles.labelText}>Password</Text>
-        <TextInput style={styles.input} placeholder="Enter your password" />
+        <TextInput
+          onChangeText={(val) => setPassword(val)}
+          style={styles.input}
+          placeholder="Enter your password"
+        />
       </View>
 
       <View
@@ -42,7 +54,7 @@ const Login = ({ navigation }) => {
       </View>
       <TouchableOpacity
         onPress={() => {
-          login();
+          login(email, password);
         }}
         style={styles.ctaButton}
       >
