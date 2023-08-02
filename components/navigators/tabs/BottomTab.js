@@ -2,6 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/Feather";
 import Home from "../../screens/Home";
 import HomeStackNavigator from "../stack/HomeStack";
+import ItemStackNavigator from "../stack/ItemStack";
 import Items from "../../screens/Items";
 import Profile from "../../screens/Profile";
 import Sales from "../../screens/Sales";
@@ -48,7 +49,7 @@ const AppStack = () => {
       />
       <BottomTab.Screen
         name="Items"
-        component={Items}
+        component={ItemStackNavigator}
         options={{
           title: "Items",
           tabBarIcon: ({ size, color, focused }) => (

@@ -1,20 +1,48 @@
-import { View, Text, StyleSheet, TextInput, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Pressable,
+  TouchableOpacity,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import React from "react";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 import { COLORS } from "../../constants/theme";
-import { TouchableOpacity } from "react-native-gesture-handler";
+
 const Register = ({ navigation }) => {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { register } = useContext(AuthContext);
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.headerText}>Register</Text>
 
       <View style={styles.inputGroup}>
+        <Text style={styles.labelText}>Username</Text>
+        <TextInput
+          onChangeText={(val) => setUsername(val)}
+          style={styles.input}
+          placeholder="Enter your username"
+        />
+      </View>
+      <View style={styles.inputGroup}>
         <Text style={styles.labelText}>Email</Text>
-        <TextInput style={styles.input} placeholder="Enter your email" />
+        <TextInput
+          onChangeText={(val) => setEmail(val)}
+          style={styles.input}
+          placeholder="Enter your email"
+        />
       </View>
       <View style={styles.inputGroup}>
         <Text style={styles.labelText}>Password</Text>
-        <TextInput style={styles.input} placeholder="Enter your password" />
+        <TextInput
+          onChangeText={(val) => setPassword(val)}
+          style={styles.input}
+          placeholder="Enter your password"
+        />
       </View>
       <View style={styles.inputGroup}>
         <Text style={styles.labelText}>Confirm Password</Text>
@@ -35,7 +63,12 @@ const Register = ({ navigation }) => {
           <Text style={styles.linkText}> Login</Text>
         </Pressable>
       </View>
-      <TouchableOpacity style={styles.ctaButton}>
+      <TouchableOpacity
+        onPress={() => {
+          register(username, email, password);
+        }}
+        style={styles.ctaButton}
+      >
         <Text style={styles.btnText}>Register</Text>
       </TouchableOpacity>
     </SafeAreaView>

@@ -31,6 +31,36 @@ const AuthProvider = ({ children }) => {
       });
   };
 
+  const register = async (username, email, password) => {
+    var data = JSON.stringify({
+      username: username,
+      email: email,
+      password: password,
+    });
+
+    var config = {
+      method: "post",
+      url: "http:192.168.1.249:2023/auth/register",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    await axios(config)
+      .then(async function (response) {
+        console.log(response.data);
+        setUserToken(response.data?.token);
+        if (userToken !== null) {
+          await AsyncStorage.setItem("token", userToken);
+        }
+        setIsLoading(false);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   const logout = () => {
     setUserToken(null);
     AsyncStorage.removeItem("token");
@@ -51,7 +81,7 @@ const AuthProvider = ({ children }) => {
     isLoggedIn();
   }, []);
   return (
-    <AuthContext.Provider value={{ login, userToken, isLoading }}>
+    <AuthContext.Provider value={{ register, login, userToken, isLoading }}>
       {children}
     </AuthContext.Provider>
   );
